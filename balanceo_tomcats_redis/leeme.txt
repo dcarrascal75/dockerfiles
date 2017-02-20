@@ -1,0 +1,3 @@
+- Este compose es para el balanceo simple de 2 tomcats con haProxy Y REDIS
+Uso tomcat_admin que es el tomcat normal con permisos en el tomcat-users 
+y con el config apuntando a REDIS

@@ -1,0 +1,44 @@
+tomcat_1:
+ image: dcarrascal75/tomcat7_java7:redis_rmohr_pass
+ expose:
+  - "80"
+  - "8080"
+ links:
+  - myredis_node
+ command: catalina.sh run
+
+tomcat_2:
+ image: dcarrascal75/tomcat7_java7:redis_rmohr_pass
+ expose:
+  - "80"
+  - "8080"
+ links:
+  - myredis_node
+ command: catalina.sh run
+
+tomcat_3:
+ image: dcarrascal75/tomcat7_java7:redis_rmohr_pass
+ expose:
+  - "80"
+  - "8080"
+ links:
+  - myredis_node
+ command: catalina.sh run
+
+
+myredis_node:
+ image: dcarrascal75/nodo-redis:no-protected
+ expose:
+  - "6379"
+ command: redis-server /usr/src/redis-stable/redis.conf
+
+haproxy:
+ build: ../dockerfile-haproxy
+ links:
+  - tomcat_1
+  - tomcat_2
+  - tomcat_3
+ ports:
+  - "80:80"
+  - "8080:8080"
+  - "70:70"
